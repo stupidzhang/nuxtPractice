@@ -1,0 +1,24 @@
+{
+  "name": "nuxtPractice",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=dev BASE_URL=http:localhost:8081 nuxt",
+    "server": "node server.js",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "cross-env NODE_ENV=test BASE_URL=http://test.myapi.com nuxt build"
+  },
+  "dependencies": {
+    "core-js": "^3.15.1",
+    "element-ui": "^2.15.2",
+    "express": "^4.17.1",
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.15.7"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "sass-loader": "^7.1.0"
+  }
+}
