@@ -2,20 +2,22 @@
   <div class="index">
     <span>hello,nuxt</span>
     <el-button type="primary" @click="handleRouter">跳转</el-button>
-    <navBar></navBar>
   </div>
 </template>
 
 <script>
-import navBar from "../components/layout/navBar";
+import { getVerifyCode } from "@/service/home";
 export default {
-  components: {
-    navBar
-  },
+  middleware: "index",
+  components: {},
   data() {
     return {};
   },
-  mounted() {},
+  mounted() {
+    getVerifyCode().then(() => {
+      console.log("...");
+    });
+  },
   methods: {
     handleRouter() {
       this.$router.push({

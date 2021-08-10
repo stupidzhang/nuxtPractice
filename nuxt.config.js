@@ -30,10 +30,22 @@ module.exports = {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
-
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy", "~/plugins/api"],
+  axios: {
+    proxy: true
+    // See https://github.com/nuxt-community/axios-module#options
+  },
+  proxy: {
+    "/api": {
+      target: "http://localhost:8080"
+      // pathRewrite: { "": "" }
+    }
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      plugins: [["@babel/plugin-proposal-private-methods", { loose: true }]]
+    },
     transpile: [/^element-ui/],
     html: {
       minify: {
@@ -48,5 +60,8 @@ module.exports = {
   env: {
     NODE_ENV: process.env.NODE_ENV,
     BASE_URL: process.env.BASE_URL
+  },
+  router: {
+    middleware: "index"
   }
 };
