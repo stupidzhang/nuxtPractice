@@ -11,12 +11,12 @@
 </template>
 
 <script>
+import { routerOptions } from "../../.nuxt/router";
 export default {
   components: {},
   computed: {
     allRouter() {
-      console.log(this.$router);
-      return this.$router;
+      return routerOptions.routes;
     }
   },
   data() {
