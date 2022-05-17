@@ -1,13 +1,16 @@
 <template>
-  <div class="header">
+  <header class="header">
     <nuxt-link
+      slot="title"
+      class="header_link"
       v-for="(route, index) in allRouter"
       :key="index"
       :to="route.path"
       @click="handleRouter(route)"
-      >{{ route.name }}</nuxt-link
     >
-  </div>
+      {{ route.name }}</nuxt-link
+    >
+  </header>
 </template>
 
 <script>
@@ -33,5 +36,11 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+  &_link {
+    display: block;
+  }
+  .el-menu-vertical-demo {
+    width: 100px;
+  }
 }
 </style>

@@ -37,14 +37,15 @@ module.exports = {
   },
   proxy: {
     "/api": {
-      target: "http://localhost:8080"
+      target: "http://localhost:3000"
       // pathRewrite: { "": "" }
     }
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     babel: {
-      plugins: [["@babel/plugin-proposal-private-methods", { loose: true }]]
+      plugins: [["@babel/plugin-proposal-private-methods", { loose: true }], ["@babel/plugin-proposal-private-property-in-object", { "loose": true }]
+    ]
     },
     transpile: [/^element-ui/],
     html: {
@@ -63,5 +64,8 @@ module.exports = {
   },
   router: {
     middleware: "index"
-  }
+  },
+  // serverMiddleware:[
+  //   '../server/routes/users.js'
+  // ]
 };
