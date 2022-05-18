@@ -3,17 +3,18 @@
     <span>hello,nuxt</span>
     <el-button type="primary" @click="handleRouter">跳转</el-button>
     <div>{{ title }}</div>
+    <el-button @click="handleSave">保存表单接口</el-button>
   </div>
 </template>
 
 <script>
-import { getVerifyCode } from "@/service/home";
+import { getVerifyCode, saveForm } from "@/service/home";
 export default {
   middleware: "index",
   components: {},
   async asyncData({ params }) {
-    const list = await getVerifyCode({ params });
-    return { title:list.data.data };
+    const list = await getVerifyCode({ params: { id: 1 } });
+    return { title: list.data.data };
   },
   data() {
     return {};
@@ -27,6 +28,13 @@ export default {
           id: 1
         }
       });
+    },
+    handleSave() {
+      saveForm({
+        data: {
+          formName: "表单1"
+        }
+      }).then(() => {});
     }
   }
 };
