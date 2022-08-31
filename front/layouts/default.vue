@@ -1,7 +1,7 @@
 <template>
   <div class="navBar">
     <Header></Header>
-    <main>
+    <main class="main">
     <Nuxt />
     </main>
   </div>
@@ -25,5 +25,8 @@ export default {
 
 <style lang="scss" scoped>
 .navBar {
+}
+.main{
+  padding:20px;
 }
 </style>

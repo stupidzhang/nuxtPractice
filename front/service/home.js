@@ -1,5 +1,5 @@
 // import request from "@/plugins/axios";
-import axios from "axios";
+import axios from '@/plugins/api.js';
 const baseUrl = "http://localhost:8081";
 // 获取验证码
 export const getVerifyCode = params =>

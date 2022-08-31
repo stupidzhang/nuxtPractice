@@ -19,7 +19,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   resp => {
     if (resp.data) {
-      if (resp.data.code !== "0") {
+      if (resp.data.code !== "000000") {
         Message({
           type: "error",
           message: resp.data.message,

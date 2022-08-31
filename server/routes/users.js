@@ -22,7 +22,7 @@ router.get("/searchById", (req, res) => {
 router.post("/saveForm", (req, res) => {
   res.send({
     code: "000000",
-    data: req.body.data.formName,
+    data: req.body.data,
   });
 });
 module.exports = router;

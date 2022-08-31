@@ -14,7 +14,7 @@ export default {
   components: {},
   async asyncData({ params }) {
     const list = await getVerifyCode({ params: { id: 1 } });
-    return { title: list.data.data };
+    return { title: list.data };
   },
   data() {
     return {};
@@ -32,9 +32,14 @@ export default {
     handleSave() {
       saveForm({
         data: {
-          formName: "表单1"
+          formName: "表单1",
+          formDataJson:''
         }
-      }).then(() => {});
+      }).then((res) => {
+        console.log(res,"ress")
+        if(res.code==='000000')
+        this.$notify.success('保存成功')
+      });
     }
   }
 };
