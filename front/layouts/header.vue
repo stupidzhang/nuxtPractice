@@ -37,7 +37,8 @@ export default {
 <style lang="scss" scoped>
 .header {
   &_link {
-    display: block;
+    // display: block;
+    margin:0 20px;
   }
   .el-menu-vertical-demo {
     width: 100px;
