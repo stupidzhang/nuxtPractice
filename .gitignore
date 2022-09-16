@@ -55,7 +55,8 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
-yarn.lock
+
+
 
 
 # dotenv environment variables file
@@ -85,6 +86,9 @@ dist
 # Service worker
 sw.*
 
+package-lock.json
+
+yarn.lock
 # macOS
 .DS_Store
 
