@@ -20,8 +20,9 @@ module.exports = {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["element-ui/lib/theme-chalk/index.css",'@/assets/css/normailze.scss'],
 
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ["@/plugins/element-ui", "@/plugins/route"],
+  plugins: ["@/plugins/element-ui", "@/plugins/route","@/plugins/api"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -30,7 +31,7 @@ module.exports = {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/axios", "@nuxtjs/proxy", "~/plugins/api"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
   axios: {
     proxy: true
     // See https://github.com/nuxt-community/axios-module#options
