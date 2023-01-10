@@ -7,3 +7,6 @@ export const getVerifyCode = params =>
 
   export const saveForm = data =>
   axios.post(`${baseUrl}/users/saveForm`, data);
+
+  export const saveFormData = data =>
+  axios.post(`${baseUrl}/users/saveFormData`, data);
