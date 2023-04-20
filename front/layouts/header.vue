@@ -29,8 +29,12 @@ export default {
     };
   },
   mounted() {
+    this.getActiveIndex()
   },
   methods: {
+   getActiveIndex(){
+    this.activeMenuIndex=  this.allRouter.findIndex(item=>item.name===this.$route.name)+''
+    }
   },
 };
 </script>
