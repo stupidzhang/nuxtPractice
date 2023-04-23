@@ -10,3 +10,6 @@ export const getVerifyCode = params =>
 
   export const saveFormData = data =>
   axios.post(`${baseUrl}/users/saveFormData`, data);
+
+  export const uploadFile = data =>
+  axios.post(`${baseUrl}/users/uploadFile`, data);

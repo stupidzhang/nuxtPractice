@@ -2,13 +2,16 @@ import axios from "axios";
 import { Message, Notification } from "element-ui";
 
 axios.defaults.headers["X-Requested-With"] = "XMLHttpRequest";
-axios.defaults.headers.post["Content-Type"] = "text/plain;charset=UTF-8";
+axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 let service = axios.create({
   // baseURL: '/',
-  timeout: 10000
+  timeout: 10000,
 });
 service.interceptors.request.use(
   config => {
+    if(config.method==='post'){
+      config.headers['Content-Type']='application/x-www-form-urlencoded'
+    }
     return config;
   },
   error => {
@@ -53,8 +56,16 @@ service.interceptors.response.use(
           }
           break;
         }
+
       }
     }
+    Notification.error({
+      title: "错误",
+      message: error,
+      duration: 5000,
+      closable: true
+    });
+    return Promise.reject(error)
   }
 );
 
