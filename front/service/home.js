@@ -13,3 +13,5 @@ export const getVerifyCode = params =>
 
   export const uploadFile = data =>
   axios.post(`${baseUrl}/users/uploadFile`, data);
+  export const getUrlById = params =>
+  axios.get(`${baseUrl}/users/getUrlById`, params);

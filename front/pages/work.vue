@@ -14,7 +14,7 @@
         <div slot="tip" class="el-upload__tip">只能上传json文件</div>
       </el-upload>
     </div>
-    <el-button :disabled="!fileObj.name" type="primary" class="button" @click="handleToCom">组合</el-button>
+    <el-button :disabled="fileObj.name" type="primary" class="button" @click="handleToCom">组合</el-button>
     <div class="main">
       <el-input v-model="text" type="textarea"></el-input>
     </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { uploadFile } from "@/service/home";
+import { uploadFile,getUrlById } from "@/service/home";
 
 export default {
   components: {},
@@ -58,7 +58,9 @@ export default {
       this.fileObj = {};
     },
     handleToCom(){
-
+      getUrlById().then((res)=>{
+        console.log(res,"ressss")
+      })
     }
   },
 };

@@ -2,10 +2,15 @@ var express = require("express");
 var fs = require("fs");
 var multipart = require("connect-multiparty");
 var multipartMiddleware = multipart();
-
+var mysql = require('mysql2');
+let sqlconfig = require('../config/sqlConfig')//引入配置好的数据库
+var connection = mysql.createConnection(sqlconfig);
+connection.connect((err) => {
+  if(err) throw err;
+  console.log(`连接成功`)
+});
 //路由级别的中间件
 var router = express.Router();
-var app = express();
 /* GET users listing. */
 router.use("*", (req, res, next) => {
   console.log("Time:", Date.now());
@@ -43,7 +48,7 @@ router.post("/uploadFile", multipartMiddleware, (req, res) => {
         console.log(err, "err");
         res.send("文件读取失败");
       } else {
-        
+
         res.send({
           code: "000000",
           data:JSON.parse(data),
@@ -52,4 +57,18 @@ router.post("/uploadFile", multipartMiddleware, (req, res) => {
     });
   }
 });
+
+router.get('/getUrlById', (req, res) => {
+  let sql = `SELECT * FROM fileTable`;
+  connection.query(sql, (err, result) => {
+    if(err){
+      console.log(err);
+      res.send(`<p>err:${err}</p>`)
+    }else{
+      console.log(result);
+      res.json(result)
+    }
+  })
+})
+
 module.exports = router;
