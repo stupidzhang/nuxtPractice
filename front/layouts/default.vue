@@ -25,8 +25,11 @@ export default {
 
 <style lang="scss" scoped>
 .navBar {
+  height: 100%;
+  overflow: hidden;
 }
 .main{
   padding:20px;
+  height:calc(100% - 100px)
 }
 </style>

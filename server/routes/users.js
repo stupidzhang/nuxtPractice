@@ -29,21 +29,41 @@ router.get("/searchById", (req, res) => {
   });
 });
 router.post("/saveForm", (req, res) => {
-  res.send({
-    code: "000000",
-    data: req.body.data,
-  });
+    res.send({
+      code: "000000",
+      data: req.body.data,
+    });
 });
 
 router.post("/uploadFile", multipartMiddleware, (req, res) => {
   const file = req.files.file;
   console.log(req, "req", file);
-  let data = false;
   if (file.name) {
     data = true;
     var path = file.path;
+    var fileName =file.name;
     console.log(path, "path");
-    fs.readFile(path, "utf-8", function (err, data) {
+    const sql = `insert into fileTable(filePath,fileName) values ('${path}','${fileName}')`;
+    connection.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(result)
+      res.send({
+        code: "000000",
+        data: result.insertId,
+      });
+    });
+  }
+});
+
+router.get('/getUrlById', (req, res) => {
+  let sql = `SELECT filePath FROM fileTable where id=${req.query.id}`;
+  connection.query(sql, (err, result) => {
+    if(err){
+      console.log(err);
+      res.send(`<p>err:${err}</p>`)
+    }else{
+      console.log(result);
+       fs.readFile(result[0].filePath, "utf-8", function (err, data) {
       if (err) {
         console.log(err, "err");
         res.send("文件读取失败");
@@ -55,18 +75,6 @@ router.post("/uploadFile", multipartMiddleware, (req, res) => {
         });
       }
     });
-  }
-});
-
-router.get('/getUrlById', (req, res) => {
-  let sql = `SELECT * FROM fileTable`;
-  connection.query(sql, (err, result) => {
-    if(err){
-      console.log(err);
-      res.send(`<p>err:${err}</p>`)
-    }else{
-      console.log(result);
-      res.json(result)
     }
   })
 })

@@ -5,6 +5,7 @@
       <el-upload
         class="upload-demo"
         action=""
+        :limit="1"
         :http-request="handleUpload"
         :on-remove="handleRemove"
         accept=".json,.JSON"
@@ -14,22 +15,36 @@
         <div slot="tip" class="el-upload__tip">只能上传json文件</div>
       </el-upload>
     </div>
-    <el-button :disabled="fileObj.name" type="primary" class="button" @click="handleToCom">组合</el-button>
+    <el-button type="primary" class="button" @click="handleToCom"
+      >解析</el-button
+    >
     <div class="main">
-      <el-input v-model="text" type="textarea"></el-input>
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+        <el-tab-pane
+          v-for="(item, index) in apiTree"
+          :key="index"
+          :label="item.name"
+          :name="index + ''"
+          >{{ item.name }}
+          <el-input v-model="item.text" type="textarea" :rows="22"></el-input>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import { uploadFile,getUrlById } from "@/service/home";
+import { uploadFile, getUrlById } from "@/service/home";
 
 export default {
   components: {},
   data() {
     return {
       fileObj: {},
-      text:''
+      text: "",
+      currentId: null,
+      apiTree: [],
+      activeName: 0,
     };
   },
   computed: {
@@ -43,7 +58,7 @@ export default {
       file.append("file", fd.file);
       uploadFile(file).then((res) => {
         if (res.data) {
-          this.fileObj = res.data.info;
+          this.currentId = res.data;
           this.$notify.success("已上传");
         } else {
           this.$message.error(res.msg);
@@ -51,22 +66,55 @@ export default {
       });
     },
     handleError(err, file, fileList) {
-      console.log(err,"err")
+      console.log(err, "err");
       fileList = [];
     },
     handleRemove() {
       this.fileObj = {};
     },
-    handleToCom(){
-      getUrlById().then((res)=>{
-        console.log(res,"ressss")
-      })
-    }
+    handleToCom() {
+      getUrlById({ params: { id: this.currentId } }).then((res) => {
+        this.apiTree = res.data.item;
+        res.data.item.forEach((list) => {
+          let fileData = "";
+          list.item.forEach((api) => {
+            const path = api.request.url.path.length && api.request.url.path[0];
+            if (path) {
+              const nameIndex = path.lastIndexOf("/");
+              // 接口名
+              const name = path.substring(nameIndex + 1, path.length);
+              // get post
+              const method = api.request.method.toLowerCase();
+              const queryKey = method === "get" ? "params" : "data";
+              const value =
+                "//" +
+                api.name +
+                "\r\nexport function " +
+                name +
+                "(params) { \r\n  return axios({ \r\n    url:'" +
+                api.request.url.path[0] +
+                "', \r\n" +
+                "    method:'" +
+                method +
+                "', \r\n    " +
+                queryKey +
+                ":params \r\n  }) \r\n}\r\n";
+              fileData += value;
+            }
+          });
+          list.text = fileData;
+        });
+        console.log(res, "ressss");
+      });
+    },
+    handleClick() {},
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .work {
+  height: 100%;
+  overflow: auto;
 }
 </style>

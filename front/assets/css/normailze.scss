@@ -1,3 +1,8 @@
+ html,body,#__nuxt,#__layout{
+  height: 100%;
+  overflow: hidden;
+}
+
 .page-enter-active, .page-leave-active {
   transition: opacity 1s;
 }
