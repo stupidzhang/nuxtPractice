@@ -18,8 +18,8 @@
     <el-button type="primary" class="button" @click="handleToCom"
       >解析</el-button
     >
-    <div class="main">
-      <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <div  class="main">
+      <el-tabs v-if="apiTree.length" v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane
           v-for="(item, index) in apiTree"
           :key="index"
@@ -116,5 +116,8 @@ export default {
 .work {
   height: 100%;
   overflow: auto;
+  .upload{
+    margin:20px 0;
+  }
 }
 </style>

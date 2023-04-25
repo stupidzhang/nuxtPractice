@@ -86,7 +86,6 @@ dist
 # Service worker
 sw.*
 
-package-lock.json
 
 yarn.lock
 # macOS
