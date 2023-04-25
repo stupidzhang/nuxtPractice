@@ -26,6 +26,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name : Cache
+      uses: actions/cache@v2
+      with:
+        path: "front/node_modules"
+        key: node-modules-${{ hashFiles('front/package.json') }}
     - run: npm ci
+      working-directory: ./front
     - run: npm run build --if-present
+      working-directory: ./front
     - run: npm test
+      working-directory: ./front
