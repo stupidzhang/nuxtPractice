@@ -1,0 +1,28 @@
+diff --git a/node_modules/element-ui/packages/button/src/button.vue b/node_modules/element-ui/packages/button/src/button.vue
+index 3a9c72b..9705ade 100644
+--- a/node_modules/element-ui/packages/button/src/button.vue
++++ b/node_modules/element-ui/packages/button/src/button.vue
+@@ -13,7 +13,7 @@
+         'is-loading': loading,
+         'is-plain': plain,
+         'is-round': round,
+-        'is-circle': circle
++        'is-circle': circle,
+       }
+     ]"
+   >
+@@ -65,12 +65,14 @@
+         return this.size || this._elFormItemSize || (this.$ELEMENT || {}).size;
+       },
+       buttonDisabled() {
++        console.log("新增代码")
+         return this.disabled || (this.elForm || {}).disabled;
+       }
+     },
+ 
+     methods: {
+       handleClick(evt) {
++        console.log(evt,"evtevtevt")
+         this.$emit('click', evt);
+       }
+     }

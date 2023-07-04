@@ -14,7 +14,7 @@ export default {
   components: {},
   async asyncData({ params }) {
     const list = await getVerifyCode({ params: { id: 1 } });
-    return { title: list.data };
+    return { title: list&&list.data };
   },
   data() {
     return {};
